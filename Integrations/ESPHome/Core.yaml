@@ -31,21 +31,21 @@ esphome:
               - lambda: "id(testScript).execute();"
 
 api:
-  services:
-    - service: play_buzzer
+  actions:
+    - action: play_buzzer
       variables:
         song_str: string
       then:
         - rtttl.play:
             rtttl: !lambda 'return song_str;'
-    - service: run_pump_for_seconds
+    - action: run_pump_for_seconds
       variables:
         seconds: int
       then:
         - switch.turn_on: pump_control
         - delay: !lambda 'return seconds * 1000;'
         - switch.turn_off: pump_control
-    - service: run_pump_until_full
+    - action: run_pump_until_full
       then: 
         - script.execute: pumpUntilFull
 

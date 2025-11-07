@@ -147,7 +147,7 @@ switch:
         - if:
             condition:
               or:
-                - binary_sensor.is_off: fluid_input_sensor
+                - binary_sensor.is_on: fluid_input_sensor
                 - switch.is_off: stop_pump_when_dry
             then:
               - logger.log: "Pump turning on - conditions met"

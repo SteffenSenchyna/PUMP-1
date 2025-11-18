@@ -398,6 +398,19 @@ sensor:
     accuracy_decimals: 0
     icon: mdi:counter
 
+text_sensor:
+  - platform: template
+    name: "Pump Status"
+    id: pump_status_text
+    icon: mdi:pump
+    lambda: |-
+      if (id(pump_control).state) {
+        return {"Dispensing"};
+      } else {
+        return {"Idle"};
+      }
+    update_interval: 1s
+
 light:
   - platform: esp32_rmt_led_strip
     id: rgb_light

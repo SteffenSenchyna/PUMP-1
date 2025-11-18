@@ -287,7 +287,7 @@ binary_sensor:
 
   - platform: gpio
     name: Fluid Output
-    id: fulid_output_sensor
+    id: fluid_output_sensor
     icon: mdi:water
     device_class: moisture
     pin:
@@ -481,7 +481,7 @@ script:
                 condition:
                   - and:
                       - switch.is_on: stop_pump_when_full
-                      - binary_sensor.is_on: fulid_output_sensor
+                      - binary_sensor.is_on: fluid_output_sensor
                 then:
                   - logger.log: "Pump stopping - tank full"
                   - switch.turn_off: pump_control

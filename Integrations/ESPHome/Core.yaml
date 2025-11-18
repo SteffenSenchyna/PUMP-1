@@ -154,7 +154,7 @@ button:
         script.execute: pumpUntilFull
 
   - platform: template
-    name: "Play Buzzer ↯" # Added to confirm Buzzer works
+    name: "Play Buzzer" # Added to confirm Buzzer works
     id: play_buzzer_button
     icon: mdi:surround-sound
     on_press:
@@ -162,7 +162,7 @@ button:
         - rtttl.play: !lambda return "scale_up:d=32,o=5,b=100:c,c#,d#,e,f#,g#,a#,b";
 
   - platform: template #<<<<<<<<<<<<<<<< Added for Interval Functionality
-    name: "Confirm Refill (Resets Pump Cycles) ↯"
+    name: "Confirm Refill (Resets Pump Cycles)"
     icon: mdi:check-circle
     on_press:
       then:
@@ -173,7 +173,7 @@ button:
 
 switch:
   - platform: template #<<<<<<<<<<<<<<<< Added for Interval Functionality
-    name: "Enable Pump Interval Runs ↯"
+    name: "Enable Pump Interval Runs"
     id: enable_pump_interval
     optimistic: true
     restore_mode: RESTORE_DEFAULT_OFF
@@ -298,14 +298,14 @@ binary_sensor:
       inverted: true
 
   - platform: template #<<<<<<<<<<<<<<<< Added for Interval Functionality
-    name: "Pump Alert Active ↯"
+    name: "Pump Alert Active"
     lambda: |-
       return id(alert_active);
     icon: mdi:alert
 
 number:
   - platform: template #<<<<<<<<<<<<<<<< Added for Interval Functionality
-    name: "Pump Interval (in Hours) ↯"
+    name: "Pump Interval (in Hours)"
     id: pump_interval_hours
     icon: mdi:timer
     min_value: 1
@@ -317,7 +317,7 @@ number:
     restore_value: true
     optimistic: true
   - platform: template #<<<<<<<<<<<<<<<< Added for Interval Functionality
-    name: "Tank Size (oz) ↯"
+    name: "Tank Size (oz)"
     id: tank_size_oz
     icon: mdi:cup
     min_value: 1
@@ -373,7 +373,7 @@ sensor:
     entity_category: "diagnostic"
 
   - platform: template #<<<<<<<<<<<<<<<< Added for Interval Functionality
-    name: "Pump Cycle Count ↯"
+    name: "Pump Cycle Count"
     id: pump_cycle_sensor
     lambda: |-
       return id(pump_cycle_count);
@@ -381,7 +381,7 @@ sensor:
     accuracy_decimals: 0
     icon: mdi:counter
   - platform: template #<<<<<<<<<<<<<<<< Added for Interval Functionality
-    name: "Pump Cycle Threshold (Computed) ↯"
+    name: "Pump Cycle Threshold (Computed)"
     id: pump_cycle_threshold
     lambda: |-
       // Flow: 900 mL/min → 15 mL/s → ~0.507 oz/s
@@ -560,14 +560,14 @@ interval:
             return;
           }
 
-          // 🧮 Fallback check: cycle threshold
+          // Fallback check: cycle threshold
           if (id(pump_cycle_count) >= (int) id(pump_cycle_threshold).state) {
             id(alert_active) = true;
             ESP_LOGD("pump", "Interval blocked: cycle threshold reached, Tank Might be Empty!");
             return;
           }
 
-          // 🕒 Time-based interval logic
+          // Time-based interval logic
           uint32_t now = id(sntp_time).now().timestamp;
           if (now == 0) {
             now = millis() / 1000;
@@ -603,13 +603,13 @@ interval:
             return;
           }
 
-          // 🔍 Primary check: ultrasonic fluid sensor
+          // Primary check: ultrasonic fluid sensor
           if (!id(fluid_input_sensor).state) {
             id(rgb_light).turn_on();  // Red alert will be handled below
             return;
           }
 
-          // 🧮 Fallback: warn if near threshold
+          // Fallback: warn if near threshold
           if (id(alert_active)) {
             id(rgb_light).turn_on();                              
           } else if (count >= threshold - 6) {

@@ -498,7 +498,7 @@ script:
                 condition:
                   - and:
                       - switch.is_on: stop_pump_when_dry
-                      - binary_sensor.is_on: fluid_input_sensor
+                      - binary_sensor.is_off: fluid_input_sensor
                 then:
                   - logger.log: "Pump stopping - input dry"
                   - switch.turn_off: pump_control

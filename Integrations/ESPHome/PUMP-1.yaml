@@ -7,13 +7,13 @@ esphome:
     board_build.flash_mode: dio
 
   on_boot:
-  - priority: -10
-    then:
-      - if:
-          condition:
-            - lambda: "return id(runTest);"
-          then:
-            - lambda: "id(testScript).execute();"
+    - priority: -10
+      then:
+        - if:
+            condition:
+              - lambda: "return id(runTest);"
+            then:
+              - lambda: "id(testScript).execute();"
 
   project:
     name: "ApolloAutomation.PUMP-1"
@@ -22,7 +22,7 @@ esphome:
   min_version: 2023.11.1
 
 dashboard_import:
-  package_import_url: github://ApolloAutomation/PUMP-1/Integrations/ESPHome/PUMP-1_Minimal.yaml
+  package_import_url: github://SteffenSenchyna/PUMP-1/Integrations/ESPHome/PUMP-1.yaml@main
   import_full_config: false
 
 improv_serial:
